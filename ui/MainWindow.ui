@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1078</width>
+    <height>609</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>4QT</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">* {
+	color: #ffffff;
+	background-color: #212121;
+	border: none;
+}
+
+QDockWidget::title {
+	padding: 4px;
+}
+
+QMenuBar {
+	padding: 5px 2px;
+	border-bottom: 3px solid #121212;
+	spacing: 0px;
+}
+
+QMenuBar::item {
+    background: transparent;
+    border-color: none;
+	padding: 2px 5px;
+}
+
+QMenuBar::item:selected {
+	border-color: none;
+    background: #121212;
+}
+
+QMenuBar::item:pressed {
+    border-color: none;
+	background: #121212;
+}
+
+QMenu::item:selected {
+    background: #121212;
+}
+
+QStatusBar {
+	border-top: 3px solid #121212;
+}
+
+QMainWindow {
+	margin: 0;
+}
+
+QMainWindow::separator {
+	/*
+	border: none;
+	border-left: 1px solid #121212;
+	*/
+	background-color: #aa121212;
+	width:4px;
+}
+
+QListWidget::item:hover
+{
+    background: #22000000;
+}
+
+QListWidget::item:selected
+{
+    background: #00000000;
+}
+
+QListWidget::item:selected:active { background: transparent;}
+QListWidget::item:selected:!active { background: transparent;}
+QListWidget::item:alternate { background: transparent;}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="listWidget_2">
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::DoubleClicked</set>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="defaultDropAction">
+       <enum>Qt::IgnoreAction</enum>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ContiguousSelection</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">border-top:3px solid #121212; border-bottom:3px solid #121212; padding: 3px;</string>
+      </property>
+      <property name="text">
+       <string>New post</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Page</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::PlusMinus</enum>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>of 1</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1078</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="features">
+    <set>QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>  Boards</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="Line" name="line">
+       <property name="styleSheet">
+        <string notr="true">border-radius: 90;
+border-top: 2px solid #BB121212;
+margin: 0 5px;
+</string>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listView_2">
+       <property name="styleSheet">
+        <string notr="true">QListWidget::item{
+	color: #ffffff;
+	margin-right: 8px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: none;
+}
+
+QListWidget::item:hover {
+	color: #ffffff;
+	background: #22000000;
+	padding-left:8px;
+	border: none;
+}
+
+QListWidget::item:selected,
+QListWidget::item:selected:active,
+QListWidget::item:selected:!active {
+	color: #ffffff;
+	background: #66000000;
+	padding-left:8px;
+	border: none;
+}
+
+QScrollBar::add-line:vertical {
+     border: none;
+     background: #00000000;
+}
+QScrollBar::sub-line:vertical {
+     border: none;
+     background: none;
+}
+QScrollBar::handle:vertical {
+     border: none;
+     border-radius: 2px;
+     background: #aaffffff;
+     width: 10px;
+}
+QScrollBar {
+     width: 8px;
+     margin-top: 4px;
+     border-radius: 90;
+     margin-right: 4px;
+     margin-bottom: 4px;
+}</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
