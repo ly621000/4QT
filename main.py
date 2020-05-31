@@ -9,6 +9,7 @@ class Ui_Item(QtWidgets.QWidget):
 '''
 
 import sys
+import threading
 
 import basc_py4chan
 
@@ -26,8 +27,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
 
-        self._loadBoards()
+        x = threading.Thread(target=self._loadBoards)
+        x.start()
+
         self.listView_2.itemClicked.connect(self.listwidgetclicked)
+        self.spinBox.valueChanged.connect(self._updateView)
+        
+        self.rows = []
 
         #item = QListWidgetItem(self.listWidget_2)
         #self.listWidget_2.addItem(item)
@@ -43,6 +49,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.listWidget_2.clear()
 
+        for i in self.rows:
+            i.thread.quit()
+        self.rows = []
+
         page = self.spinBox.value()
 
         for i in self.board.get_threads(page):
@@ -51,10 +61,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
             row = Ui_Item()
             item.setSizeHint(row.sizeHint())
+            row.setPostData(i.topic)
             row.setTitle(i.topic.subject)
             row.setThumbnail(list(i.thumbs())[0])
+            row.setReplyIds([])
+            row.setAuthor(i.topic.name + (" ({})" if i.topic.poster_id else '').format(i.topic.poster_id))
             row.setContent(i.topic.text_comment)
             row.setId(i.topic.post_id)
+            
+            self.rows.append(row)
 
             self.listWidget_2.setItemWidget(item, row)
 
@@ -67,13 +82,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         lst.addItems(data)
 
     def listwidgetclicked(self, item):
-        print('!!! click {}'.format(item.text()))
+        self.spinBox.setValue(1)
         if item.text().startswith('/'):
             board_name=item.text().split(' - ')[0].replace('/', '')
             self.board = basc_py4chan.get_boards([board_name])[0]
 
             self._updateView()
-        
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     w = MainWindow()

@@ -10,6 +10,19 @@
 from PyQt5 import QtCore, QtGui, QtWidgets   
 from PyQt5.QtGui import QPixmap, QIcon
 import urllib
+from functools import partial
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, Qt, QThread, QTimer
+
+class Downloader(QObject):
+    resultsChanged = pyqtSignal(bytes)
+
+    @pyqtSlot(str)
+    def download(self, url):
+        try:
+            img = urllib.request.urlopen(url).read()
+        except:
+            img = b""
+        self.resultsChanged.emit(img)
 
 class Ui_Item(QtWidgets.QWidget):            
     def __init__(self, parent=None):
@@ -68,6 +81,9 @@ class Ui_Item(QtWidgets.QWidget):
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
+        
+        self.label.mousePressEvent = partial(self._downloadImage)
+
         self.horizontalLayout_6.addWidget(self.label)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -148,6 +164,7 @@ class Ui_Item(QtWidgets.QWidget):
         self.label_3.setStyleSheet("background: none; color: #ddd;")
         self.label_3.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
         self.label_3.setObjectName("label_3")
+        self.label_3.setWordWrap(True)
         self.verticalLayout_4.addWidget(self.label_3)
         self.line = QtWidgets.QFrame(self.scrollAreaWidgetContents)
         self.line.setStyleSheet("background: #121212;")
@@ -174,6 +191,13 @@ class Ui_Item(QtWidgets.QWidget):
         self.horizontalLayout.addWidget(self.widget_2)
         self.verticalLayout.addLayout(self.horizontalLayout)
 
+        self.thread = QThread(self)
+        self.thread.start()
+
+        self.downloader = Downloader()
+        self.downloader.moveToThread(self.thread)
+        self.downloader.resultsChanged.connect(self.on_resultsChanged)
+
         self.retranslateUi(self)
 
     def retranslateUi(self, Item):
@@ -182,33 +206,20 @@ class Ui_Item(QtWidgets.QWidget):
         self.label_2.setText(_translate("Item", "TextLabel"))
         self.label_6.setText(_translate("Item", "TextLabel"))
         self.label_3.setText(_translate("Item", "TextLabel"))
-        self.label_4.setText(_translate("Item", "Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-"Sample Text\n"
-""))
+        self.label_4.setText(_translate("Item", "Sample Text\n"*20))
+
+    def _downloadImage(self, sauce):
+        import webbrowser
+        webbrowser.open(self.postData.file.file_url)
+
+    def setPostData(self, data):
+        self.postData = data
     def setTitle(self, title: str):
-        self.label_3.setText(title)
+        if title:
+            self.label_3.setText(title)
+        else:
+            self.label_3.hide()
+            self.line.hide()
     def setAuthor(self, author: str):
         self.title2.setText(author)
     def setReplyIds(self, ids):
@@ -219,10 +230,13 @@ class Ui_Item(QtWidgets.QWidget):
     def setContent(self, content):
         self.label_4.setText(content)
     def setThumbnail(self, url):
-        data=b''
-        with urllib.request.urlopen(url) as a:
-            data = a.read()
+        wrapper = partial(self.downloader.download, url)
+        QTimer.singleShot(0, wrapper)
+
+    @pyqtSlot(bytes)
+    def on_resultsChanged(self, img):
         pixmap = QPixmap()
-        pixmap.loadFromData(data)
+        pixmap.loadFromData(img)
+        self.label.setToolTip(self.postData.file.filename)
         self.label.setPixmap(pixmap)
 

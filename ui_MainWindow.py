@@ -89,6 +89,28 @@ class Ui_MainWindow(object):
         self.listWidget_2 = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget_2.setMouseTracking(True)
         self.listWidget_2.setAutoFillBackground(True)
+        self.listWidget_2.setStyleSheet("\n"
+"QScrollBar::add-line:vertical {\n"
+"     border: none;\n"
+"     background: #00000000;\n"
+"}\n"
+"QScrollBar::sub-line:vertical {\n"
+"     border: none;\n"
+"     background: none;\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"     border: none;\n"
+"     border-radius: 2px;\n"
+"     background: #aaffffff;\n"
+"     width: 10px;\n"
+"}\n"
+"QScrollBar {\n"
+"     width: 8px;\n"
+"     margin-top: 4px;\n"
+"     border-radius: 90;\n"
+"     margin-right: 4px;\n"
+"     margin-bottom: 4px;\n"
+"}")
         self.listWidget_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.listWidget_2.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.listWidget_2.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)
@@ -139,7 +161,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1078, 29))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1078, 33))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")

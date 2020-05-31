@@ -214,8 +214,8 @@ QScrollBar {
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>624</width>
-               <height>427</height>
+               <width>734</width>
+               <height>526</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_4">
