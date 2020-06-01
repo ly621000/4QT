@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
 
-'''
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-class Ui_Item(QtWidgets.QWidget):
-    def setupUi(self, Item):
-        super(Ui_Item, self).__init__(parent)
-'''
-
 import sys
 import threading
 
@@ -32,7 +24,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.listView_2.itemClicked.connect(self.listwidgetclicked)
         self.spinBox.valueChanged.connect(self._updateView)
-        
+
+        self.listView_2.setVerticalScrollMode(QAbstractItemView.ScrollPerPixel);
+
         self.rows = []
 
         #item = QListWidgetItem(self.listWidget_2)
@@ -68,10 +62,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             row.setAuthor(i.topic.name + (" ({})" if i.topic.poster_id else '').format(i.topic.poster_id))
             row.setContent(i.topic.text_comment)
             row.setId(i.topic.post_id)
-            
+            if i.sticky: row.setPin()
+
             self.rows.append(row)
 
             self.listWidget_2.setItemWidget(item, row)
+        self.listView_2.verticalScrollBar().setSingleStep(3)
 
     def _loadBoards(self):
         lst = self.listView_2

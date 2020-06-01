@@ -146,13 +146,19 @@ QScrollBar {
        <enum>Qt::IgnoreAction</enum>
       </property>
       <property name="selectionMode">
-       <enum>QAbstractItemView::ContiguousSelection</enum>
+       <enum>QAbstractItemView::NoSelection</enum>
       </property>
       <property name="verticalScrollMode">
        <enum>QAbstractItemView::ScrollPerPixel</enum>
       </property>
       <property name="horizontalScrollMode">
        <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="movement">
+       <enum>QListView::Static</enum>
+      </property>
+      <property name="itemAlignment">
+       <set>Qt::AlignLeading</set>
       </property>
      </widget>
     </item>
@@ -366,5 +372,22 @@ QScrollBar {
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>304</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -116,9 +116,11 @@ class Ui_MainWindow(object):
         self.listWidget_2.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)
         self.listWidget_2.setProperty("showDropIndicator", False)
         self.listWidget_2.setDefaultDropAction(QtCore.Qt.IgnoreAction)
-        self.listWidget_2.setSelectionMode(QtWidgets.QAbstractItemView.ContiguousSelection)
+        self.listWidget_2.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.listWidget_2.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
         self.listWidget_2.setHorizontalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
+        self.listWidget_2.setMovement(QtWidgets.QListView.Static)
+        self.listWidget_2.setItemAlignment(QtCore.Qt.AlignLeading)
         self.listWidget_2.setObjectName("listWidget_2")
         self.verticalLayout_2.addWidget(self.listWidget_2)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -249,6 +251,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
+        self.actionQuit.triggered.connect(MainWindow.close)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

@@ -77,11 +77,11 @@ class Ui_Item(QtWidgets.QWidget):
         self.label.setMaximumSize(QtCore.QSize(250, 16777215))
         self.label.setText("")
         self.label.setTextFormat(QtCore.Qt.RichText)
-        self.label.setPixmap(QtGui.QPixmap("ui/../../../../Downloads/pfp.jpg"))
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
-        
+        self.label.hide()
+
         self.label.mousePressEvent = partial(self._downloadImage)
 
         self.horizontalLayout_6.addWidget(self.label)
@@ -108,6 +108,18 @@ class Ui_Item(QtWidgets.QWidget):
         self.label_6.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_6.setObjectName("label_6")
         self.horizontalLayout_5.addWidget(self.label_6)
+        
+        self.pin = QtWidgets.QLabel(self.widget_2)
+        self.pin.setMaximumSize(QtCore.QSize(12, 12))
+        self.pin.setText("")
+        self.pin.setTextFormat(QtCore.Qt.RichText)
+        self.pin.setPixmap(QtGui.QPixmap("images/pin.png"))
+        self.pin.setScaledContents(True)
+        self.pin.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
+        self.horizontalLayout_5.addWidget(self.pin)
+
+        self.pin.hide()
+        
         self.verticalLayout_3.addLayout(self.horizontalLayout_5)
         self.scrollArea = QtWidgets.QScrollArea(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Expanding)
@@ -207,6 +219,9 @@ class Ui_Item(QtWidgets.QWidget):
         self.label_6.setText(_translate("Item", "TextLabel"))
         self.label_3.setText(_translate("Item", "TextLabel"))
         self.label_4.setText(_translate("Item", "Sample Text\n"*20))
+    
+    def setPin(self):
+        self.pin.show()
 
     def _downloadImage(self, sauce):
         import webbrowser
@@ -239,4 +254,5 @@ class Ui_Item(QtWidgets.QWidget):
         pixmap.loadFromData(img)
         self.label.setToolTip(self.postData.file.filename)
         self.label.setPixmap(pixmap)
+        self.label.show()
 
