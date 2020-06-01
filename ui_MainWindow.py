@@ -117,6 +117,7 @@ class Ui_MainWindow(object):
         self.listWidget_2.setProperty("showDropIndicator", False)
         self.listWidget_2.setDefaultDropAction(QtCore.Qt.IgnoreAction)
         self.listWidget_2.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.listWidget_2.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
         self.listWidget_2.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
         self.listWidget_2.setHorizontalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
         self.listWidget_2.setMovement(QtWidgets.QListView.Static)
@@ -191,6 +192,9 @@ class Ui_MainWindow(object):
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setObjectName("line")
         self.verticalLayout.addWidget(self.line)
+        self.nsfw = QtWidgets.QCheckBox(self.dockWidgetContents)
+        self.nsfw.setObjectName("nsfw")
+        self.verticalLayout.addWidget(self.nsfw)
         self.listView_2 = QtWidgets.QListWidget(self.dockWidgetContents)
         self.listView_2.setStyleSheet("QListWidget::item{\n"
 "    color: #ffffff;\n"
@@ -263,6 +267,7 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.dockWidget.setWindowTitle(_translate("MainWindow", "  Boards"))
+        self.nsfw.setText(_translate("MainWindow", "Show NSFW boards"))
         self.actionQuit.setText(_translate("MainWindow", "Quit"))
         self.actionQuit.setShortcut(_translate("MainWindow", "Ctrl+Q"))
         self.actionHelp.setText(_translate("MainWindow", "Help"))

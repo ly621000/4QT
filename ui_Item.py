@@ -9,6 +9,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets   
 from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtGui import QCursor
+from PyQt5.QtWidgets import *
 import urllib
 from functools import partial
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, Qt, QThread, QTimer
@@ -81,6 +83,7 @@ class Ui_Item(QtWidgets.QWidget):
         self.label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
         self.label.hide()
+        self.label.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.label.mousePressEvent = partial(self._downloadImage)
 
@@ -202,7 +205,38 @@ class Ui_Item(QtWidgets.QWidget):
         self.horizontalLayout_6.addLayout(self.verticalLayout_3)
         self.horizontalLayout.addWidget(self.widget_2)
         self.verticalLayout.addLayout(self.horizontalLayout)
+        
+        self.verticalLayout_4.addWidget(self.label_4)
 
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout_3.addWidget(self.scrollArea)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_2)
+
+        self.label_5 = QLabel(self.widget_2)
+        self.label_5.setObjectName(u"label_5")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Preferred)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy6)
+        self.label_5.setCursor(QCursor(Qt.PointingHandCursor))
+        self.label_5.setStyleSheet(u"color: lightblue;")
+        self.label_5.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+
+        self.horizontalLayout_2.addWidget(self.label_5)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
+
+
+        self.label_5.hide()
+        
         self.thread = QThread(self)
         self.thread.start()
 
@@ -219,7 +253,8 @@ class Ui_Item(QtWidgets.QWidget):
         self.label_6.setText(_translate("Item", "TextLabel"))
         self.label_3.setText(_translate("Item", "TextLabel"))
         self.label_4.setText(_translate("Item", "Sample Text\n"*20))
-    
+        self.label_5.setText(_translate("Item", u"View Thread >", None))
+
     def setPin(self):
         self.pin.show()
 
@@ -247,6 +282,10 @@ class Ui_Item(QtWidgets.QWidget):
     def setThumbnail(self, url):
         wrapper = partial(self.downloader.download, url)
         QTimer.singleShot(0, wrapper)
+    def setPost(self):
+        self.horizontalLayout.setContentsMargins(64, -1, -1, -1)
+    def setThread(self):
+        self.label_5.show()
 
     @pyqtSlot(bytes)
     def on_resultsChanged(self, img):

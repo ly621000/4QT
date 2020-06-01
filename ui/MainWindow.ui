@@ -148,6 +148,9 @@ QScrollBar {
       <property name="selectionMode">
        <enum>QAbstractItemView::NoSelection</enum>
       </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectItems</enum>
+      </property>
       <property name="verticalScrollMode">
        <enum>QAbstractItemView::ScrollPerPixel</enum>
       </property>
@@ -297,6 +300,13 @@ margin: 0 5px;
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="nsfw">
+       <property name="text">
+        <string>Show NSFW boards</string>
        </property>
       </widget>
      </item>
